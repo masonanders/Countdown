@@ -1,0 +1,51 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="./styles.css">
+  </head>
+  <body>
+    <div style="display: flex;">
+      <h1 id="untilAfter"></h1>
+        <h1>&nbsp;</h1>
+      <h1 id="curDate"></h1>
+    </div>
+    <h1 id="timer"></h2>
+  </body></body>
+  <script>
+    console.log('Shpoo the best')
+    const countdownTo = new Date("December 30, 2019");
+    document.getElementById('curDate').innerText = countdownTo.toDateString()
+
+    function convertMiliseconds(ms) {
+      const total_seconds = parseInt(Math.floor(ms / 1000));
+      const total_minutes = parseInt(Math.floor(total_seconds / 60));
+      const total_hours = parseInt(Math.floor(total_minutes / 60));
+      const total_days = parseInt(Math.floor(total_hours / 24));
+
+      const seconds = parseInt(total_seconds % 60);
+      const minutes = parseInt(total_minutes % 60);
+      const hours = parseInt(total_hours % 24);
+
+      return { d: total_days, h: hours, m: minutes, s: seconds };
+    }
+
+    function pad(n) {
+      return (n < 10 ? "0" : "") + parseInt(n);
+    }
+
+    function createTimestamp({ d, h, m, s }) {
+      return [d, pad(h), pad(m), pad(s)].join(":");
+    }
+    const countdownEl = document.getElementById("timer");
+    const untilAfter = document.getElementById("untilAfter");
+    const setCountdown = () => {
+      const [countDown, countUp] = [countdownTo - Date.now(), Date.now() - countdownTo]
+      const time = convertMiliseconds(countDown > 0 ? countDown : countUp);
+      const timeAsString = createTimestamp(time);
+      countdownEl.innerText = timeAsString;
+      untilAfter.innerText = countDown > 0 ? 'Time until: ' : 'Time since: '
+
+      window.requestAnimationFrame(setCountdown);
+    };
+    window.requestAnimationFrame(setCountdown);
+  </script>
+</html>

@@ -1,0 +1,13 @@
+@media only screen and (max-device-width: 720px) {
+  body {
+    font-size: x-large;
+  }
+}
+body {
+  background-color: blanchedalmond;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: "Courier New", Courier, monospace;
+}
